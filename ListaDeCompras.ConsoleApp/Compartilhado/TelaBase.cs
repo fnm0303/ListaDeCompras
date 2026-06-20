@@ -1,0 +1,96 @@
+namespace ListaDeCompras.ConsoleApp.Compartilhado;
+
+public abstract class TelaBase
+{
+    private string nomeEntidade = string.Empty; //string vazia
+    private RepositorioBase repositorio;
+
+    protected TelaBase(string nomeEntidade, RepositorioBase repositorio) //apenas classes que herdam vão poder acessar esse construtor
+    {
+        this.nomeEntidade = nomeEntidade;
+        this.repositorio = repositorio;
+    }
+    public virtual string? ObterOpcaoMenu() //virtual = vai manter uma implementação base e permite que outras classes implementem esse método (override)
+    {
+        Console.WriteLine("------------------------");
+        Console.WriteLine($"Gestão de {nomeEntidade}s");
+        Console.WriteLine("------------------------");
+        Console.WriteLine($"1 - Cadastrar {nomeEntidade}");
+        Console.WriteLine($"2 - Editar {nomeEntidade}");
+        Console.WriteLine($"3 - Excluir {nomeEntidade}");
+        Console.WriteLine($"4 - Visualizar {nomeEntidade}s");
+        Console.WriteLine("S - Sair");
+        Console.WriteLine("------------------------");
+        Console.Write("> ");
+        string? opcaoMenuInterno = Console.ReadLine()?.ToUpper();
+
+        return opcaoMenuInterno;
+    }
+
+    public void Cadastrar()
+    {
+        Console.WriteLine("------------------------");
+        Console.WriteLine($"Cadastro de {nomeEntidade}s");
+        Console.WriteLine("------------------------");
+
+        EntidadeBase novaEntidade = ObterDadosCadastrais();
+
+        repositorio.Cadastrar(novaEntidade);
+
+        Console.WriteLine($"O registro \"{novaEntidade.Id}\" foi cadastrado com sucesso.");
+        Console.WriteLine("------------------------");
+        Console.WriteLine("Digite ENTER para continuar...");
+        Console.ReadLine();
+    }
+
+    public void Editar()
+    {
+        Console.WriteLine("------------------------");
+        Console.WriteLine($"Edição de {nomeEntidade}");
+        Console.WriteLine("------------------------");
+
+        VisualizarTodos(false);
+
+        Console.WriteLine("------------------------");
+        Console.Write("Digite o ID do registro que deseja editar: ");
+        int idSelecionado = Convert.ToInt32(Console.ReadLine());
+
+        Console.WriteLine("------------------------");
+
+        EntidadeBase entidadeAtualizada = ObterDadosCadastrais();
+
+        repositorio.Editar(idSelecionado, entidadeAtualizada);
+
+        Console.WriteLine("------------------------");
+        Console.WriteLine($"O registro \"{entidadeAtualizada.Id}\" foi atualizado com sucesso.");
+        Console.WriteLine("------------------------");
+        Console.WriteLine("Digite ENTER para continuar...");
+        Console.ReadLine();
+    }
+
+    public void Excluir()
+    {
+        Console.WriteLine("------------------------");
+        Console.WriteLine($"Exclusão de {nomeEntidade}");
+        Console.WriteLine("------------------------");
+
+        VisualizarTodos(false);
+
+        Console.WriteLine("------------------------");
+        Console.Write("Digite o ID do registro que deseja excluir: ");
+        int idSelecionado = Convert.ToInt32(Console.ReadLine());
+
+        repositorio.Excluir(idSelecionado);
+
+        Console.WriteLine("------------------------");
+        Console.WriteLine($"O registro \"{idSelecionado}\" foi excluído com sucesso.");
+        Console.WriteLine("------------------------");
+        Console.WriteLine("Digite ENTER para continuar...");
+        Console.ReadLine();
+    }
+
+    public abstract void VisualizarTodos(bool deveExibirCabecalho);
+
+    protected abstract EntidadeBase ObterDadosCadastrais();
+
+}
