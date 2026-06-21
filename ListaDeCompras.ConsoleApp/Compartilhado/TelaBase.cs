@@ -27,6 +27,11 @@ public abstract class TelaBase
         return opcaoMenuInterno;
     }
 
+    protected virtual bool ExisteRegistroComInformacoesExclusivas(EntidadeBase entidade)
+    {
+        return false;
+    }
+
     public void Cadastrar()
     {
         Console.WriteLine("------------------------");
@@ -34,6 +39,14 @@ public abstract class TelaBase
         Console.WriteLine("------------------------");
 
         EntidadeBase novaEntidade = ObterDadosCadastrais();
+
+        if (ExisteRegistroComInformacoesExclusivas(novaEntidade))
+        {
+            Console.WriteLine("------------------------");
+            Console.WriteLine("Digite ENTER para continuar...");
+            Console.ReadLine();
+            return;
+        }
 
         repositorio.Cadastrar(novaEntidade);
 
