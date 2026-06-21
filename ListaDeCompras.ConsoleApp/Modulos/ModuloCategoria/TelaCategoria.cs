@@ -84,7 +84,7 @@ public class TelaCategoria : TelaBase, ITelaOpcoes
         return new Categoria(nome!, cor);
     }
 
-    protected override bool ExisteRegistroComInformacoesExclusivas(EntidadeBase entidade)
+    protected override bool ExisteRegistroComInformacoesExclusivas(EntidadeBase entidade, int? idIgnorado = null)
     {
         Categoria novaCategoria = (Categoria)entidade;
 
@@ -97,7 +97,7 @@ public class TelaCategoria : TelaBase, ITelaOpcoes
             if (c == null)
                 continue;
 
-            if (novaCategoria.Nome == c.Nome)
+            if (idIgnorado != c.Id && novaCategoria.Nome == c.Nome)
             {
                 Console.WriteLine("------------------------");
                 Console.WriteLine($"Já existe uma categoria com o nome \"{c.Nome}\".");

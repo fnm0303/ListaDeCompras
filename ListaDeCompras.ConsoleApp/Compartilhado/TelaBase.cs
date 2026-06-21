@@ -27,11 +27,6 @@ public abstract class TelaBase
         return opcaoMenuInterno;
     }
 
-    protected virtual bool ExisteRegistroComInformacoesExclusivas(EntidadeBase entidade)
-    {
-        return false;
-    }
-
     public void Cadastrar()
     {
         Console.WriteLine("------------------------");
@@ -72,6 +67,14 @@ public abstract class TelaBase
 
         EntidadeBase entidadeAtualizada = ObterDadosCadastrais();
 
+        if (ExisteRegistroComInformacoesExclusivas(entidadeAtualizada, idSelecionado))
+        {
+            Console.WriteLine("------------------------");
+            Console.WriteLine("Digite ENTER para continuar...");
+            Console.ReadLine();
+            return;
+        }
+
         repositorio.Editar(idSelecionado, entidadeAtualizada);
 
         Console.WriteLine("------------------------");
@@ -105,5 +108,10 @@ public abstract class TelaBase
     public abstract void VisualizarTodos(bool deveExibirCabecalho);
 
     protected abstract EntidadeBase ObterDadosCadastrais();
+
+    protected virtual bool ExisteRegistroComInformacoesExclusivas(EntidadeBase entidade, int? idIgnorado = null)
+    {
+        return false;
+    }
 
 }
