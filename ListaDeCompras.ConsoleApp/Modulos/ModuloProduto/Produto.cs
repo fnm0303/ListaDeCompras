@@ -24,10 +24,10 @@ public static class GeradorIdsProdutos
 }
 public enum UnidadeMedida
 {
-    kg,
-    unidade,
-    litro,
-    caixa
+    Kg,
+    Unidade,
+    Litro,
+    Caixa
 }
 
 public class Produto : EntidadeBase

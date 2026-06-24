@@ -11,7 +11,7 @@ public class MenuPrincipal
     public MenuPrincipal()
     {
         Categoria categoriaTeste = new Categoria("Produtos de Limpeza", CorCategoria.Vermelho);
-        Produto produtoTeste = new Produto("Amaciante", UnidadeMedida.caixa, 190);
+        Produto produtoTeste = new Produto("Amaciante", UnidadeMedida.Caixa, 190);
 
         repositorioCategoria = new RepositorioCategoria();
         repositorioCategoria.Cadastrar(categoriaTeste);
@@ -38,7 +38,7 @@ public class MenuPrincipal
             return new TelaCategoria(repositorioCategoria);
 
         if (opcaoMenuPrincipal == "2")
-            return null;
+            return new TelaProduto(repositorioProduto);
 
         if (opcaoMenuPrincipal == "3")
             return null;
