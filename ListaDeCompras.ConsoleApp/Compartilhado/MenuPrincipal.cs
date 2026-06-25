@@ -10,13 +10,13 @@ public class MenuPrincipal
 
     public MenuPrincipal()
     {
-        Categoria categoriaTeste = new Categoria("Produtos de Limpeza", CorCategoria.Vermelho);
-        Produto produtoTeste = new Produto("Amaciante", UnidadeMedida.Caixa, 190);
-
         repositorioCategoria = new RepositorioCategoria();
+        repositorioProduto = new RepositorioProduto();
+
+        Categoria categoriaTeste = new Categoria("Produtos de Limpeza", CorCategoria.Vermelho);
         repositorioCategoria.Cadastrar(categoriaTeste);
 
-        repositorioProduto = new RepositorioProduto();
+        Produto produtoTeste = new Produto("Amaciante", UnidadeMedida.Caixa, 190, categoriaTeste);
         repositorioProduto.Cadastrar(produtoTeste);
 
     }
@@ -38,7 +38,7 @@ public class MenuPrincipal
             return new TelaCategoria(repositorioCategoria);
 
         if (opcaoMenuPrincipal == "2")
-            return new TelaProduto(repositorioProduto);
+            return new TelaProduto(repositorioProduto, repositorioCategoria);
 
         if (opcaoMenuPrincipal == "3")
             return null;

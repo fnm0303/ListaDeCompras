@@ -1,14 +1,17 @@
 using ListaDeCompras.ConsoleApp.Compartilhado;
+using ListaDeCompras.ConsoleApp.Modulos.ModuloCategoria;
 
 namespace ListaDeCompras.ConsoleApp.Modulos.ModuloProduto;
 
 public class TelaProduto : TelaBase, ITelaOpcoes
 {
     private readonly RepositorioProduto repositorioProduto;
+    private readonly RepositorioCategoria repositorioCategoria;
 
-    public TelaProduto(RepositorioProduto repositorioProduto) : base("Produto", repositorioProduto)
+    public TelaProduto(RepositorioProduto repositorioProduto, RepositorioCategoria repositorioCategoria) : base("Produto", repositorioProduto)
     {
         this.repositorioProduto = repositorioProduto;
+        this.repositorioCategoria = repositorioCategoria;
     }
 
     public override void VisualizarTodos(bool deveExibirCabecalho)
@@ -20,8 +23,8 @@ public class TelaProduto : TelaBase, ITelaOpcoes
             Console.WriteLine("------------------------");
         }
 
-        Console.WriteLine("{0, -7} | {1, -20} | {2, -12} | {3, -10}",
-                            "Id", "Nome", "Un. Medida", "Preço aprox.");
+        Console.WriteLine("{0, -7} | {1, -20} | {2, -12} | {3, -12} | {4, -10}",
+                            "Id", "Nome", "Un. Medida", "Preço aprox.", "Categoria");
 
         EntidadeBase[] registros = repositorioProduto.SelecionarTodos();
 
@@ -31,8 +34,8 @@ public class TelaProduto : TelaBase, ITelaOpcoes
             if (p == null)
                 continue;
 
-            Console.WriteLine("{0, -7} | {1, -20} | {2, -12} | {3, -10}",
-                            p.Id, p.Nome, p.UniMedida, p.PrecoAproximado.ToString("N2"));
+            Console.WriteLine("{0, -7} | {1, -20} | {2, -12} | {3, -12} | {4, -10}",
+                            p.Id, p.Nome, p.UniMedida, p.PrecoAproximado.ToString("N2"), p.Categoria.Nome);
         }
 
         if (deveExibirCabecalho)
@@ -84,7 +87,32 @@ public class TelaProduto : TelaBase, ITelaOpcoes
         Console.WriteLine("Informe o preço aproximado do produto: ");
         double preco = Convert.ToDouble(Console.ReadLine());
 
-        return new Produto(nome!, medida, preco);
+        Console.WriteLine("------------------------");
+        Console.WriteLine("Visualização de Categorias");
+        Console.WriteLine("------------------------");
+
+        Console.WriteLine("{0, -7} | {1, -20} | {2, -10}",
+                            "Id", "Nome", "Cor");
+
+        EntidadeBase[] registros = repositorioCategoria.SelecionarTodos();
+
+        for (int i = 0; i < registros.Length; i++)
+        {
+            Categoria c = (Categoria)registros[i];
+            if (c == null)
+                continue;
+
+            Console.WriteLine("{0, -7} | {1, -20} | {2, -10}",
+                            c.Id, c.Nome, c.Cor);
+        }
+
+        Console.WriteLine("------------------------");
+        Console.WriteLine("Digite o ID do registro que deseja selecionar: ");
+        int idSelecionado = Convert.ToInt32(Console.ReadLine());
+
+        Categoria? categoriaSelecionada = (Categoria?)repositorioCategoria.SelecionarPorId(idSelecionado);
+
+        return new Produto(nome!, medida, preco, categoriaSelecionada!);
 
     }
 }

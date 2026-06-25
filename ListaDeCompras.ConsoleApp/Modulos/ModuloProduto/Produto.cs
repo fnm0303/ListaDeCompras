@@ -10,6 +10,7 @@ Regras de Negócio:
 */
 
 using ListaDeCompras.ConsoleApp.Compartilhado;
+using ListaDeCompras.ConsoleApp.Modulos.ModuloCategoria;
 
 namespace ListaDeCompras.ConsoleApp.Modulos.ModuloProduto;
 
@@ -36,12 +37,15 @@ public class Produto : EntidadeBase
     public UnidadeMedida UniMedida { get; private set; }
     public double PrecoAproximado { get; private set; }
 
-    public Produto(string nome, UnidadeMedida uniMedida, double precoAproximado)
+    public Categoria Categoria { get; private set; }
+
+    public Produto(string nome, UnidadeMedida uniMedida, double precoAproximado, Categoria categoria)
     {
         Id = GeradorIdsProdutos.GerarId();
         Nome = nome;
         UniMedida = uniMedida;
         PrecoAproximado = precoAproximado;
+        Categoria = categoria;
     }
 
     public override void Atualizar(EntidadeBase entidadeAtualizada)
@@ -50,5 +54,6 @@ public class Produto : EntidadeBase
         Nome = produtoAtualizado.Nome;
         UniMedida = produtoAtualizado.UniMedida;
         PrecoAproximado = produtoAtualizado.PrecoAproximado;
+        Categoria = produtoAtualizado.Categoria;
     }
 }
