@@ -25,8 +25,8 @@ public static class GeradorIdsProdutos
 }
 public enum UnidadeMedida
 {
-    Kg,
     Unidade,
+    Kg,
     Litro,
     Caixa
 }
