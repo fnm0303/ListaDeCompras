@@ -1,4 +1,5 @@
 using ListaDeCompras.ConsoleApp.Modulos.ModuloCategoria;
+using ListaDeCompras.ConsoleApp.Modulos.ModuloListaCompras;
 using ListaDeCompras.ConsoleApp.Modulos.ModuloProduto;
 
 namespace ListaDeCompras.ConsoleApp.Compartilhado;
@@ -7,6 +8,7 @@ public class MenuPrincipal
 {
     private readonly RepositorioCategoria repositorioCategoria;
     private readonly RepositorioProduto repositorioProduto;
+    private readonly RepositorioListaCompras repositorioListaCompras;
 
     public MenuPrincipal()
     {
@@ -18,6 +20,10 @@ public class MenuPrincipal
 
         Produto produtoTeste = new Produto("Amaciante", UnidadeMedida.Caixa, 190, categoriaTeste);
         repositorioProduto.Cadastrar(produtoTeste);
+
+        ListaCompras listaTeste = new ListaCompras("Compras da semana");
+        repositorioListaCompras = new RepositorioListaCompras();
+        repositorioListaCompras.Cadastrar(listaTeste);
 
     }
     public ITelaOpcoes? ObterOpcaoMenuPrincipal()
@@ -41,7 +47,7 @@ public class MenuPrincipal
             return new TelaProduto(repositorioProduto, repositorioCategoria);
 
         if (opcaoMenuPrincipal == "3")
-            return null;
+            return new TelaListaCompras(repositorioListaCompras);
 
         return null;
     }
