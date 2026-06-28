@@ -1,4 +1,5 @@
 using ListaDeCompras.ConsoleApp.Modulos.ModuloCategoria;
+using ListaDeCompras.ConsoleApp.Modulos.ModuloItemListaCompras;
 using ListaDeCompras.ConsoleApp.Modulos.ModuloListaCompras;
 using ListaDeCompras.ConsoleApp.Modulos.ModuloProduto;
 
@@ -22,9 +23,10 @@ public class MenuPrincipal
         repositorioProduto.Cadastrar(produtoTeste);
 
         ListaCompras listaTeste = new ListaCompras("Compras da semana");
+        listaTeste.AdicionarItem(new ItemListaCompras(produtoTeste, 3));
+
         repositorioListaCompras = new RepositorioListaCompras();
         repositorioListaCompras.Cadastrar(listaTeste);
-
     }
     public ITelaOpcoes? ObterOpcaoMenuPrincipal()
     {
@@ -47,7 +49,7 @@ public class MenuPrincipal
             return new TelaProduto(repositorioProduto, repositorioCategoria);
 
         if (opcaoMenuPrincipal == "3")
-            return new TelaListaCompras(repositorioListaCompras);
+            return new TelaListaCompras(repositorioListaCompras, repositorioProduto);
 
         return null;
     }
