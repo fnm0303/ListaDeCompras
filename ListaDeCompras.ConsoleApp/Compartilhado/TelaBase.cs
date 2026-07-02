@@ -1,11 +1,11 @@
 namespace ListaDeCompras.ConsoleApp.Compartilhado;
 
-public abstract class TelaBase
+public abstract class TelaBase<TEntidade> where TEntidade : EntidadeBase
 {
     private string nomeEntidade = string.Empty; //string vazia
-    private RepositorioBase repositorio;
+    private readonly RepositorioBase<TEntidade> repositorio;
 
-    protected TelaBase(string nomeEntidade, RepositorioBase repositorio) //apenas classes que herdam vão poder acessar esse construtor
+    protected TelaBase(string nomeEntidade, RepositorioBase<TEntidade> repositorio) //apenas classes que herdam vão poder acessar esse construtor
     {
         this.nomeEntidade = nomeEntidade;
         this.repositorio = repositorio;
@@ -33,7 +33,7 @@ public abstract class TelaBase
         Console.WriteLine($"Cadastro de {nomeEntidade}s");
         Console.WriteLine("------------------------");
 
-        EntidadeBase novaEntidade = ObterDadosCadastrais();
+        TEntidade novaEntidade = ObterDadosCadastrais();
 
         if (ExisteRegistroComInformacoesExclusivas(novaEntidade))
         {
@@ -65,7 +65,7 @@ public abstract class TelaBase
 
         Console.WriteLine("------------------------");
 
-        EntidadeBase entidadeAtualizada = ObterDadosCadastrais();
+        TEntidade entidadeAtualizada = ObterDadosCadastrais();
 
         if (ExisteRegistroComInformacoesExclusivas(entidadeAtualizada, idSelecionado))
         {
@@ -115,9 +115,9 @@ public abstract class TelaBase
 
     public abstract void VisualizarTodos(bool deveExibirCabecalho);
 
-    protected abstract EntidadeBase ObterDadosCadastrais();
+    protected abstract TEntidade ObterDadosCadastrais();
 
-    protected virtual bool ExisteRegistroComInformacoesExclusivas(EntidadeBase entidade, int? idIgnorado = null)
+    protected virtual bool ExisteRegistroComInformacoesExclusivas(TEntidade entidade, int? idIgnorado = null)
     {
         return false;
     }

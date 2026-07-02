@@ -3,7 +3,7 @@ using ListaDeCompras.ConsoleApp.Modulos.ModuloCategoria;
 
 namespace ListaDeCompras.ConsoleApp.Modulos.ModuloProduto;
 
-public class TelaProduto : TelaBase, ITelaOpcoes
+public class TelaProduto : TelaBase<Produto>, ITelaOpcoes, ITelaCrud
 {
     private readonly RepositorioProduto repositorioProduto;
     private readonly RepositorioCategoria repositorioCategoria;
@@ -46,7 +46,7 @@ public class TelaProduto : TelaBase, ITelaOpcoes
         }
     }
 
-    protected override EntidadeBase ObterDadosCadastrais()
+    protected override Produto ObterDadosCadastrais()
     {
         Console.WriteLine("Informe o nome do produto: ");
         string? nome = Console.ReadLine();
@@ -110,25 +110,24 @@ public class TelaProduto : TelaBase, ITelaOpcoes
         Console.WriteLine("Digite o ID do registro que deseja selecionar: ");
         int idSelecionado = Convert.ToInt32(Console.ReadLine());
 
-        Categoria? categoriaSelecionada = (Categoria?)repositorioCategoria.SelecionarPorId(idSelecionado);
+        Categoria? categoriaSelecionada = repositorioCategoria.SelecionarPorId(idSelecionado);
 
         return new Produto(nome!, medida, preco, categoriaSelecionada!);
 
     }
 
-    protected override bool ExisteRegistroComInformacoesExclusivas(EntidadeBase entidade, int? idIgnorado = null)
+    protected override bool ExisteRegistroComInformacoesExclusivas(Produto entidade, int? idIgnorado = null)
     {
-        Produto produto = (Produto)entidade;
-        EntidadeBase[] produtos = repositorioProduto.SelecionarTodos();
+        Produto[] produtos = repositorioProduto.SelecionarTodos();
 
         for (int i = 0; i < produtos.Length; i++)
         {
-            Produto p = (Produto)produtos[i];
+            Produto p = produtos[i];
 
             if (p == null)
                 continue;
 
-            if (p.Id != idIgnorado && p.Nome == produto.Nome.ToLower() && p.Categoria == produto.Categoria)
+            if (p.Id != idIgnorado && p.Nome == entidade.Nome.ToLower() && p.Categoria == entidade.Categoria)
             {
                 Console.WriteLine("------------------------");
                 Console.WriteLine($"Já existe um produto com o nome \"{p.Nome}\".");
@@ -138,4 +137,5 @@ public class TelaProduto : TelaBase, ITelaOpcoes
         }
         return base.ExisteRegistroComInformacoesExclusivas(entidade, idIgnorado);
     }
+
 }
