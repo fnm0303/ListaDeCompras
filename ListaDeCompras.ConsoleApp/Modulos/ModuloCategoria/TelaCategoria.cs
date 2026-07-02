@@ -26,16 +26,12 @@ public class TelaCategoria : TelaBase<Categoria>, ITelaOpcoes, ITelaCrud
         Console.WriteLine("{0, -7} | {1, -20} | {2, -10}",
                             "Id", "Nome", "Cor");
 
-        Categoria[] registros = repositorioCategoria.SelecionarTodos();
+        List<Categoria> registros = repositorioCategoria.SelecionarTodos();
 
-        for (int i = 0; i < registros.Length; i++)
+        foreach (Categoria c in registros)
         {
-            Categoria c = registros[i];
-            if (c == null)
-                continue;
-
             Console.WriteLine("{0, -7} | {1, -20} | {2, -10}",
-                            c.Id, c.Nome, c.Cor);
+                 c.Id, c.Nome, c.Cor);
         }
 
         if (deveExibirCabecalho)
@@ -89,15 +85,10 @@ public class TelaCategoria : TelaBase<Categoria>, ITelaOpcoes, ITelaCrud
 
     protected override bool ExisteRegistroComInformacoesExclusivas(Categoria entidade, int? idIgnorado = null)
     {
-        Categoria[] categorias = repositorioCategoria.SelecionarTodos();
+        List<Categoria> categorias = repositorioCategoria.SelecionarTodos();
 
-        for (int i = 0; i < categorias.Length; i++)
+        foreach (Categoria c in categorias)
         {
-            Categoria c = categorias[i];
-
-            if (c == null)
-                continue;
-
             if (idIgnorado != c.Id && entidade.Nome == c.Nome)
             {
                 Console.WriteLine("------------------------");
@@ -112,15 +103,10 @@ public class TelaCategoria : TelaBase<Categoria>, ITelaOpcoes, ITelaCrud
 
     protected override bool ExistemDependenciasAtivasDoRegistro(int idRegistro)
     {
-        Produto[] produtos = repositorioProduto.SelecionarTodos();
+        List<Produto> produtos = repositorioProduto.SelecionarTodos();
 
-        for (int i = 0; i < produtos.Length; i++)
+        foreach (Produto p in produtos)
         {
-            Produto p = produtos[i];
-
-            if (p == null)
-                continue;
-
             if (p.Categoria.Id == idRegistro)
             {
                 Console.WriteLine("------------------------");

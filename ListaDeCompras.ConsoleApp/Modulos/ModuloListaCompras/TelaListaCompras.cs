@@ -48,16 +48,12 @@ public class TelaListaCompras : TelaBase<ListaCompras>, ITelaOpcoes, ITelaCrud
         Console.WriteLine("{0, -7} | {1, -20} | {2, -15} | {3, -12}",
                             "Id", "Nome", "Data de Criação", "Status");
 
-        EntidadeBase[] registros = repositorioListaCompras.SelecionarTodos();
+        List<ListaCompras> registros = repositorioListaCompras.SelecionarTodos();
 
-        for (int i = 0; i < registros.Length; i++)
+        foreach (ListaCompras l in registros)
         {
-            ListaCompras l = (ListaCompras)registros[i];
-            if (l == null)
-                continue;
-
             Console.WriteLine("{0, -7} | {1, -20} | {2, -15} | {3, -12}",
-                            l.Id, l.Nome, l.DataCriacao.ToShortDateString(), l.Status);
+                l.Id, l.Nome, l.DataCriacao.ToShortDateString(), l.Status);
         }
 
         if (deveExibirCabecalho)
@@ -188,14 +184,10 @@ public class TelaListaCompras : TelaBase<ListaCompras>, ITelaOpcoes, ITelaCrud
         Console.WriteLine("{0, -7} | {1, -20} | {2, -12} | {3, -12} | {4, -10}",
                      "Id", "Nome", "Un. Medida", "Preço aprox.", "Categoria");
 
-        Produto[] produtos = repositorioProduto.SelecionarTodos();
+        List<Produto> produtos = repositorioProduto.SelecionarTodos();
 
-        for (int i = 0; i < produtos.Length; i++)
+        foreach (Produto p in produtos)
         {
-            Produto p = produtos[i];
-            if (p == null)
-                continue;
-
             Console.WriteLine("{0, -7} | {1, -20} | {2, -12} | {3, -12} | {4, -10}",
                             p.Id, p.Nome, p.UniMedida, p.PrecoAproximado.ToString("N2"), p.Categoria.Nome);
         }

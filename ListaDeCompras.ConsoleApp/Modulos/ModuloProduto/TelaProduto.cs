@@ -26,16 +26,12 @@ public class TelaProduto : TelaBase<Produto>, ITelaOpcoes, ITelaCrud
         Console.WriteLine("{0, -7} | {1, -20} | {2, -12} | {3, -12} | {4, -10}",
                             "Id", "Nome", "Un. Medida", "Preço aprox.", "Categoria");
 
-        EntidadeBase[] registros = repositorioProduto.SelecionarTodos();
+        List<Produto> registros = repositorioProduto.SelecionarTodos();
 
-        for (int i = 0; i < registros.Length; i++)
+        foreach (Produto p in registros)
         {
-            Produto p = (Produto)registros[i];
-            if (p == null)
-                continue;
-
             Console.WriteLine("{0, -7} | {1, -20} | {2, -12} | {3, -12} | {4, -10}",
-                            p.Id, p.Nome, p.UniMedida, p.PrecoAproximado.ToString("N2"), p.Categoria.Nome);
+                    p.Id, p.Nome, p.UniMedida, p.PrecoAproximado.ToString("N2"), p.Categoria.Nome);
         }
 
         if (deveExibirCabecalho)
@@ -94,16 +90,12 @@ public class TelaProduto : TelaBase<Produto>, ITelaOpcoes, ITelaCrud
         Console.WriteLine("{0, -7} | {1, -20} | {2, -10}",
                             "Id", "Nome", "Cor");
 
-        EntidadeBase[] registros = repositorioCategoria.SelecionarTodos();
+        List<Categoria> registros = repositorioCategoria.SelecionarTodos();
 
-        for (int i = 0; i < registros.Length; i++)
+        foreach (Categoria c in registros)
         {
-            Categoria c = (Categoria)registros[i];
-            if (c == null)
-                continue;
-
             Console.WriteLine("{0, -7} | {1, -20} | {2, -10}",
-                            c.Id, c.Nome, c.Cor);
+                c.Id, c.Nome, c.Cor);
         }
 
         Console.WriteLine("------------------------");
@@ -118,15 +110,10 @@ public class TelaProduto : TelaBase<Produto>, ITelaOpcoes, ITelaCrud
 
     protected override bool ExisteRegistroComInformacoesExclusivas(Produto entidade, int? idIgnorado = null)
     {
-        Produto[] produtos = repositorioProduto.SelecionarTodos();
+        List<Produto> produtos = repositorioProduto.SelecionarTodos();
 
-        for (int i = 0; i < produtos.Length; i++)
+        foreach (Produto p in produtos)
         {
-            Produto p = produtos[i];
-
-            if (p == null)
-                continue;
-
             if (p.Id != idIgnorado && p.Nome == entidade.Nome.ToLower() && p.Categoria == entidade.Categoria)
             {
                 Console.WriteLine("------------------------");
