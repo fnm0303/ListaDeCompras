@@ -33,11 +33,16 @@ public enum UnidadeMedida
 
 public class Produto : EntidadeBase
 {
-    public string Nome { get; private set; }
-    public UnidadeMedida UniMedida { get; private set; }
-    public double PrecoAproximado { get; private set; }
+    public string Nome { get; set; }
+    public UnidadeMedida UniMedida { get; set; }
+    public double PrecoAproximado { get; set; }
 
-    public Categoria Categoria { get; private set; }
+    public Categoria Categoria { get; set; }
+
+    public Produto()
+    {
+
+    }
 
     public Produto(string nome, UnidadeMedida uniMedida, double precoAproximado, Categoria categoria)
     {

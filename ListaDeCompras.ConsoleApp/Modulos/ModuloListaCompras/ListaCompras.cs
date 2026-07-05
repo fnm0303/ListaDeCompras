@@ -20,11 +20,16 @@ public enum StatusListaCompras
 
 public class ListaCompras : EntidadeBase
 {
-    public string Nome { get; private set; }
-    public DateTime DataCriacao { get; private set; }
-    public StatusListaCompras Status { get; private set; } = StatusListaCompras.Aberta;
+    public string Nome { get; set; }
+    public DateTime DataCriacao { get; set; }
+    public StatusListaCompras Status { get; set; } = StatusListaCompras.Aberta;
 
-    public ItemListaCompras[] Itens { get; private set; } = new ItemListaCompras[100];
+    public ItemListaCompras[] Itens { get; set; } = new ItemListaCompras[100];
+
+    public ListaCompras() //construtor vazio para não dar problema na Deserialize (desserialização)
+    {
+
+    }
 
     public ListaCompras(string nome)
     {

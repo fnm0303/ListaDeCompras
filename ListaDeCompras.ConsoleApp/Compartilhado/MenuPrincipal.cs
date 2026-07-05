@@ -1,3 +1,4 @@
+using ListaDeCompras.ConsoleApp.Compartilhado.Arquivos;
 using ListaDeCompras.ConsoleApp.Modulos.ModuloCategoria;
 using ListaDeCompras.ConsoleApp.Modulos.ModuloItemListaCompras;
 using ListaDeCompras.ConsoleApp.Modulos.ModuloListaCompras;
@@ -13,20 +14,14 @@ public class MenuPrincipal
 
     public MenuPrincipal()
     {
-        repositorioCategoria = new RepositorioCategoria();
-        repositorioProduto = new RepositorioProduto();
+        ContextoJson contexto = new ContextoJson();
 
-        Categoria categoriaTeste = new Categoria("Produtos de Limpeza", CorCategoria.Vermelho);
-        repositorioCategoria.Cadastrar(categoriaTeste);
+        contexto.Carregar();
 
-        Produto produtoTeste = new Produto("Amaciante", UnidadeMedida.Caixa, 190, categoriaTeste);
-        repositorioProduto.Cadastrar(produtoTeste);
+        repositorioCategoria = new RepositorioCategoria(contexto);
+        repositorioProduto = new RepositorioProduto(contexto);
+        repositorioListaCompras = new RepositorioListaCompras(contexto);
 
-        ListaCompras listaTeste = new ListaCompras("Compras da semana");
-        listaTeste.AdicionarItem(new ItemListaCompras(produtoTeste, 3));
-
-        repositorioListaCompras = new RepositorioListaCompras();
-        repositorioListaCompras.Cadastrar(listaTeste);
     }
     public ITelaOpcoes? ObterOpcaoMenuPrincipal()
     {

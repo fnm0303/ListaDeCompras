@@ -28,8 +28,13 @@ public enum CorCategoria
 }
 public class Categoria : EntidadeBase
 {
-    public string Nome { get; private set; }
-    public CorCategoria Cor { get; private set; } //por padrão primeiro valor será BRANCO
+    public string Nome { get; set; }
+    public CorCategoria Cor { get; set; } //por padrão primeiro valor será BRANCO
+
+    public Categoria()
+    {
+
+    }
 
     public Categoria(string nome, CorCategoria cor)
     {
