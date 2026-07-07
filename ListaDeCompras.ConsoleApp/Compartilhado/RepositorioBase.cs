@@ -6,16 +6,14 @@ public abstract class RepositorioBase<TEntidade> where TEntidade : EntidadeBase 
 {  //Tipo Entidade, pode ser qualquer tipo
 
     protected readonly ContextoJson contexto;
+    protected readonly List<TEntidade> registros;
 
     protected RepositorioBase(ContextoJson contexto)
     {
         this.contexto = contexto;
         registros = ObterRegistros();
     }
-
     protected abstract List<TEntidade> ObterRegistros();
-
-    protected readonly List<TEntidade> registros;
 
     public void Cadastrar(TEntidade novoRegistro)
     {

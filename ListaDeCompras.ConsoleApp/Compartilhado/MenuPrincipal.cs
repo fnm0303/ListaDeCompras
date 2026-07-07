@@ -1,6 +1,5 @@
 using ListaDeCompras.ConsoleApp.Compartilhado.Arquivos;
 using ListaDeCompras.ConsoleApp.Modulos.ModuloCategoria;
-using ListaDeCompras.ConsoleApp.Modulos.ModuloItemListaCompras;
 using ListaDeCompras.ConsoleApp.Modulos.ModuloListaCompras;
 using ListaDeCompras.ConsoleApp.Modulos.ModuloProduto;
 

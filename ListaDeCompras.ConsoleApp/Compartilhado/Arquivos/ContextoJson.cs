@@ -30,27 +30,27 @@ public class ContextoJson
     public void Salvar()
     {
         JsonSerializerOptions options = new JsonSerializerOptions();
-        options.WriteIndented = true; //
-        options.ReferenceHandler = ReferenceHandler.Preserve; //cria um ID próprio para cada objeto e passa uma referência ao objeto com que tem relação 
-        options.PropertyNamingPolicy = JsonNamingPolicy.CamelCase; //deixa tudo minúsculo
+        options.WriteIndented = true;
+        options.ReferenceHandler = ReferenceHandler.Preserve;
 
         string jsonString = JsonSerializer.Serialize(this, options);
 
-        File.WriteAllText(caminhoArquivoDados, jsonString); //salvando arquivo no sistema
+        File.WriteAllText(caminhoArquivoDados, jsonString);
     }
 
     public void Carregar()
     {
-        if (!File.Exists(caminhoArquivoDados)) //se caminho NÃO existe
+        if (!File.Exists(caminhoArquivoDados))
             return;
 
         string jsonString = File.ReadAllText(caminhoArquivoDados);
 
         JsonSerializerOptions options = new JsonSerializerOptions();
-        options.WriteIndented = true; //
+        options.WriteIndented = true;
         options.ReferenceHandler = ReferenceHandler.Preserve;
 
-        ContextoJson? contextoSalvo = JsonSerializer.Deserialize<ContextoJson>(jsonString, options);
+        ContextoJson? contextoSalvo =
+            JsonSerializer.Deserialize<ContextoJson>(jsonString, options);
 
         if (contextoSalvo == null)
             return;

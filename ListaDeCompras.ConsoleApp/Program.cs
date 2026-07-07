@@ -1,6 +1,4 @@
 ﻿using ListaDeCompras.ConsoleApp.Compartilhado;
-using ListaDeCompras.ConsoleApp.Compartilhado.Arquivos;
-using ListaDeCompras.ConsoleApp.Modulos.ModuloCategoria;
 using ListaDeCompras.ConsoleApp.Modulos.ModuloListaCompras;
 
 MenuPrincipal menuPrincipal = new MenuPrincipal();

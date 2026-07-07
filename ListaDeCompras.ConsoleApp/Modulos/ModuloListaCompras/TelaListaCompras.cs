@@ -189,7 +189,7 @@ public class TelaListaCompras : TelaBase<ListaCompras>, ITelaOpcoes, ITelaCrud
         foreach (Produto p in produtos)
         {
             Console.WriteLine("{0, -7} | {1, -20} | {2, -12} | {3, -12} | {4, -10}",
-                            p.Id, p.Nome, p.UniMedida, p.PrecoAproximado.ToString("N2"), p.Categoria.Nome);
+                            p.Id, p.Nome, p.UniMedida, p.PrecoAproximado.ToString("C2"), p.Categoria.Nome);
         }
     }
 

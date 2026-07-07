@@ -23,15 +23,23 @@ public class TelaProduto : TelaBase<Produto>, ITelaOpcoes, ITelaCrud
             Console.WriteLine("------------------------");
         }
 
-        Console.WriteLine("{0, -7} | {1, -20} | {2, -12} | {3, -12} | {4, -10}",
-                            "Id", "Nome", "Un. Medida", "Preço aprox.", "Categoria");
+        Console.WriteLine(
+            "{0, -7} | {1, -20} | {2, -20} | {3, -10} | {4, -17}",
+            "Id", "Nome", "Categoria", "Unidade", "Preço Aproximado"
+        );
 
         List<Produto> registros = repositorioProduto.SelecionarTodos();
 
         foreach (Produto p in registros)
         {
-            Console.WriteLine("{0, -7} | {1, -20} | {2, -12} | {3, -12} | {4, -10}",
-                    p.Id, p.Nome, p.UniMedida, p.PrecoAproximado.ToString("N2"), p.Categoria.Nome);
+            Console.WriteLine(
+                "{0, -7} | {1, -20} | {2, -20} | {3, -10} | {4, -17}",
+                p.Id,
+                p.Nome,
+                p.Categoria.Nome,
+                p.UniMedida,
+                p.PrecoAproximado.ToString("C2")
+            );
         }
 
         if (deveExibirCabecalho)
