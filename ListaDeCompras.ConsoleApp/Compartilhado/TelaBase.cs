@@ -35,16 +35,34 @@ public abstract class TelaBase<TEntidade> where TEntidade : EntidadeBase
 
         TEntidade novaEntidade = ObterDadosCadastrais();
 
+        List<string> erros = novaEntidade.Validar();
+
+        if (erros.Count > 0)
+        {
+            string erro = erros.First(); //mostrando o PRIMEIRO erro
+            Console.WriteLine("------------------------");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(erro);
+            Console.ResetColor();
+            Console.WriteLine("------------------------");
+            Console.WriteLine("Digite ENTER para continuar...");
+            Console.WriteLine("------------------------");
+            Console.ReadLine();
+            return;
+        }
+
         if (ExisteRegistroComInformacoesExclusivas(novaEntidade))
         {
             Console.WriteLine("------------------------");
             Console.WriteLine("Digite ENTER para continuar...");
+            Console.WriteLine("------------------------");
             Console.ReadLine();
             return;
         }
 
         repositorio.Cadastrar(novaEntidade);
 
+        Console.WriteLine("------------------------");
         Console.WriteLine($"O registro \"{novaEntidade.Id}\" foi cadastrado com sucesso.");
         Console.WriteLine("------------------------");
         Console.WriteLine("Digite ENTER para continuar...");
@@ -66,6 +84,22 @@ public abstract class TelaBase<TEntidade> where TEntidade : EntidadeBase
         Console.WriteLine("------------------------");
 
         TEntidade entidadeAtualizada = ObterDadosCadastrais();
+
+        List<string> erros = entidadeAtualizada.Validar();
+
+        if (erros.Count > 0)
+        {
+            string erro = erros.First(); //mostrando o PRIMEIRO erro
+            Console.WriteLine("------------------------");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(erro);
+            Console.ResetColor();
+            Console.WriteLine("------------------------");
+            Console.WriteLine("Digite ENTER para continuar...");
+            Console.WriteLine("------------------------");
+            Console.ReadLine();
+            return;
+        }
 
         if (ExisteRegistroComInformacoesExclusivas(entidadeAtualizada, idSelecionado))
         {

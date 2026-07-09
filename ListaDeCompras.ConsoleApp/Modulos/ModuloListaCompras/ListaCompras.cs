@@ -65,6 +65,18 @@ public class ListaCompras : EntidadeBase
         }
     }
 
+    public override List<string> Validar()
+    {
+        List<string> erros = new List<string>();
+
+        if (string.IsNullOrWhiteSpace(Nome))
+            erros.Add("O campo \"Nome\" deve ser preenchido.");
+
+        if (Nome.Length < 3 || Nome.Length > 100)
+            erros.Add("O campo \"Nome\" deve ter entre 3 e 100 caracteres.");
+
+        return erros;
+    }
     public override void Atualizar(EntidadeBase entidadeAtualizada)
     {
         ListaCompras listaAtualizada = (ListaCompras)entidadeAtualizada;
@@ -72,6 +84,5 @@ public class ListaCompras : EntidadeBase
         Nome = listaAtualizada.Nome;
         Status = listaAtualizada.Status;
     }
-
 
 }

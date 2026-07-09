@@ -14,9 +14,9 @@ public static class GeradorIdsItemListaCompras
 
 public class ItemListaCompras
 {
-    public int Id { get; private set; }
-    public Produto Produto { get; private set; }
-    public int Quantidade { get; private set; }
+    public int Id { get; set; }
+    public Produto Produto { get; set; }
+    public int Quantidade { get; set; }
 
     public double PrecoTotal
     {

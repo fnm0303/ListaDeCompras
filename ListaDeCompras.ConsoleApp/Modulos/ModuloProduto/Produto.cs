@@ -53,6 +53,27 @@ public class Produto : EntidadeBase
         Categoria = categoria;
     }
 
+    public override List<string> Validar()
+    {
+        List<string> erros = new List<string>();
+
+        if (string.IsNullOrWhiteSpace(Nome))
+            erros.Add("O campo \"Nome\" deve ser preenchido.");
+
+        if (Nome.Length < 2 || Nome.Length > 100)
+            erros.Add("O campo \"Nome\" deve ter entre 2 e 100 caracteres.");
+
+        if (Categoria == null)
+            erros.Add("O campo \"Categoria\" deve ser preenchido.");
+
+        if (PrecoAproximado == 0 || PrecoAproximado < 0)
+            erros.Add("O campo \"Preço aproximado\" não pode ser zero ou negativo.");
+
+        if (!Enum.IsDefined(UniMedida))
+            erros.Add("O campo \"Unidade Medida\" deve conter uma seleção válida (Unidade, Kg, Litro ou Caixa).");
+
+        return erros;
+    }
     public override void Atualizar(EntidadeBase entidadeAtualizada)
     {
         Produto produtoAtualizado = (Produto)entidadeAtualizada;
@@ -61,4 +82,6 @@ public class Produto : EntidadeBase
         PrecoAproximado = produtoAtualizado.PrecoAproximado;
         Categoria = produtoAtualizado.Categoria;
     }
+
+
 }

@@ -43,6 +43,21 @@ public class Categoria : EntidadeBase
         Cor = cor;
     }
 
+    public override List<string> Validar()
+    {
+        List<string> erros = new List<string>();
+
+        if (string.IsNullOrWhiteSpace(Nome)) //se nome estiver vazio
+            erros.Add("O campo \"Nome\" precisa ser preenchido.");
+
+        else if (Nome.Length > 50)
+            erros.Add("O campo \"Nome\" pode ter no máximo 50 caracteres.");
+
+        if (!Enum.IsDefined(Cor)) //se a cor não estiver definida no nosso Enum
+            erros.Add("O campo \"Cor\" deve conter uma seleção válida (Branco, Vermelho, Verde, Azul).");
+
+        return erros;
+    }
     public override void Atualizar(EntidadeBase entidadeAtualizada)
     {
         Categoria categoriaAtualizada = (Categoria)entidadeAtualizada;
@@ -50,4 +65,5 @@ public class Categoria : EntidadeBase
         Nome = categoriaAtualizada.Nome;
         Cor = categoriaAtualizada.Cor;
     }
+
 }
